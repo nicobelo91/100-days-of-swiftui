@@ -20,6 +20,7 @@ struct ContentView: View {
         }
     }
     @State private var userScore = 0
+    
     var body: some View {
         VStack {
             Text("App's choice")
@@ -30,6 +31,7 @@ struct ContentView: View {
             HStack {
                 ForEach(0 ..< 3) { number in
                     Button(action: {
+                        
                         buttonTapped(number)
                     }) {
                         Text(self.rockPaperScissors[number])
@@ -43,18 +45,39 @@ struct ContentView: View {
     }
     
     func buttonTapped(_ number: Int) {
+        
         if shouldWin {
-            if number == (appsChoice + 1) {
-                userScore += 1
+            
+            if appsChoice != 2 {
+                if number == (appsChoice + 1) {
+                    userScore += 1
+                } else {
+                    userScore -= 1
+                }
             } else {
-                userScore -= 1
+                if number == 0 {
+                    userScore += 1
+                } else {
+                    userScore -= 1
+                }
             }
+            
         } else {
-            if number == (appsChoice - 1) {
-                userScore += 1
+            
+            if appsChoice != 0 {
+                if number == (appsChoice - 1) {
+                    userScore += 1
+                } else {
+                    userScore -= 1
+                }
             } else {
-                userScore -= 1
+                if number == 2 {
+                    userScore += 1
+                } else {
+                    userScore -= 1
+                }
             }
+            
         }
         appsChoice = Int.random(in: 0...2)
         shouldWin = Bool.random()
